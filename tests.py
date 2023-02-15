@@ -38,8 +38,7 @@ class TestBooksCollector:
         assert collector.get_book_rating(name=not_added_book_name) is None
 
 
-
-@pytest.mark.parametrize(
+    @pytest.mark.parametrize(
     'name,rating',
     [
         ['Lowest Rating', 1],
@@ -47,21 +46,20 @@ class TestBooksCollector:
         ['Highest Rating', 10]
         ]
 )
-def test_set_book_rating(name, rating):
-    collector = BooksCollector()
-    collector.add_new_book(name)
-    collector.set_book_rating(name, rating)
+    def test_set_book_rating(self, name, rating):
+        collector = BooksCollector()
+        collector.add_new_book(name)
+        collector.set_book_rating(name, rating)
 
-    assert collector.get_book_rating(name) == rating
+        assert collector.get_book_rating(name) == rating
 
+    def test_add_book_in_favorites(self):
+        collector = BooksCollector()
+        new_book_name = 'Favorite Book'
+        collector.add_new_book(name=new_book_name)
+        collector.add_book_in_favorites(name=new_book_name)
 
-def test_add_book_in_favorites():
-    collector = BooksCollector()
-    new_book_name = 'Favorite Book'
-    collector.add_new_book(name=new_book_name)
-    collector.add_book_in_favorites(name=new_book_name)
-
-    assert len(collector.get_list_of_favorites_books()) == 1
+        assert len(collector.get_list_of_favorites_books()) == 1
 
 
 
