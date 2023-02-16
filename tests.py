@@ -61,7 +61,22 @@ class TestBooksCollector:
 
         assert len(collector.get_list_of_favorites_books()) == 1
 
+    def test_add_book_in_favorites_cant_add_same_book(self):
+        collector = BooksCollector()
+        new_book_name = 'Favorite Book'
+        collector.add_new_book(name=new_book_name)
+        collector.add_book_in_favorites(name=new_book_name)
+        len_favorites = len(collector.get_list_of_favorites_books())
+        collector.add_book_in_favorites(name=new_book_name)
+        assert len(collector.get_list_of_favorites_books()) == len_favorites
 
+    def test_delete_book_from_favorites(self, name='Law and Order'):
+        collector = BooksCollector()
+        collector.add_new_book(name)
+        collector.add_book_in_favorites(name)
+        len_favorites = len(collector.get_list_of_favorites_books())
+        collector.delete_book_from_favorites(name)
+        assert len(collector.get_list_of_favorites_books()) == (len_favorites - 1)
 
 
 
